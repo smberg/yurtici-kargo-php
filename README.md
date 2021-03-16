@@ -1,0 +1,2 @@
+# YurticiKargo
+Yurtici Kargo entegrasyonu
