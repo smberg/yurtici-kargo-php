@@ -24,3 +24,46 @@ If you do not wish to use Composer, you can download the [latest release](https:
 ```php
 require_once('/path/to/yurtici-kargo-php/YurticiKargoBootstrap.php');
 ```
+
+## Create a shipment request
+
+```php
+<?php
+require_once "../vendor/autoload.php";
+
+$request = new YurticiKargo\Request();
+$request->setUser("YKTEST", "YK")->init("test");
+
+$shipmentDetails = array(
+    "receiverCustName" => "Berkay Gümüştekin",
+    "receiverAddress" => "Test Mah. Deneme Sk. No:3",
+    "receiverPhone1" => "05555555555",
+    "invoiceKey" => "SBG".YurticiKargo\Request::generateKey(17),
+    "cargoKey" => "SBG".YurticiKargo\Request::generateKey(10)
+);
+$shipment = new YurticiKargo\Shipment();
+$shipment->setShipmentDetails($shipmentDetails);
+
+$createShipment = $request->createShipment($shipment);
+
+echo '<pre>';
+print_r($createShipment);
+echo '</pre>';
+```
+
+## Query cargo status
+
+```php
+<?php
+require_once "../vendor/autoload.php";
+
+$request = new YurticiKargo\Request();
+$request->setUser("YKTEST", "YK")->init("test");
+
+
+$queryShipment = $request->queryShipment("SBG5448C616D8");
+
+echo '<pre>';
+print_r($queryShipment->getResultData());
+echo '</pre>';
+```
