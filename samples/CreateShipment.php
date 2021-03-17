@@ -8,8 +8,8 @@ $shipmentDetails = array(
     "receiverCustName" => "Berkay Gümüştekin",
     "receiverAddress" => "Test Mah. Deneme Sk. No:3",
     "receiverPhone1" => "05555555555",
-    "invoiceKey" => "SBG".strtoupper(substr(md5(microtime()), 0, 17)),
-    "cargoKey" => "SBG".strtoupper(substr(md5(microtime()), 0, 10))
+    "invoiceKey" => "SBG".YurticiKargo\Request::generateKey(17),
+    "cargoKey" => "SBG".YurticiKargo\Request::generateKey(10)
 );
 $shipment = new YurticiKargo\Shipment();
 $shipment->setShipmentDetails($shipmentDetails);

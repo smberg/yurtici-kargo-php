@@ -139,4 +139,16 @@ class Request
 
         return $result;
     }
+    
+    /**
+     * Benzersiz anahtar üret
+     *
+     * @param  int $characterCount 32 karaktere kadar sınırlı
+     * @return string
+     */
+    public static function generateKey($characterCount = 17)
+    {
+        $limit = (int) $characterCount;
+        return strtoupper(substr(md5(microtime()), 0, $limit));
+    }
 }
