@@ -21,15 +21,17 @@ If you do not wish to use Composer, you can download the [latest release](https:
 ```php
 require_once('/path/to/yurtici-kargo-php/YurticiKargoBootstrap.php');
 ```
+
 # Examples
+
 ## Create a shipment request
 
 ```php
 <?php
 require_once "../vendor/autoload.php";
 
-$request = new YurticiKargo\Request();
-$request->setUser("YKTEST", "YK")->init("test");
+$request = new YurticiKargo\Request("test");
+$request->setUser("YKTEST", "YK");
 
 $shipmentDetails = array(
     "receiverCustName" => "Berkay Gümüştekin",
@@ -47,13 +49,15 @@ echo '<pre>';
 print_r($createShipment);
 echo '</pre>';
 ```
+
 ## Cancel a shipment request
+
 ```php
 <?php
 require_once "../vendor/autoload.php";
 
-$request = new YurticiKargo\Request();
-$request->setUser("YKTEST", "YK")->init("test");
+$request = new YurticiKargo\Request("test");
+$request->setUser("YKTEST", "YK");
 
 $cancelShipment = $request->cancelShipment("CARGO_KEY");
 
@@ -68,8 +72,8 @@ echo '</pre>';
 <?php
 require_once "../vendor/autoload.php";
 
-$request = new YurticiKargo\Request();
-$request->setUser("YKTEST", "YK")->init("test");
+$request = new YurticiKargo\Request("test");
+$request->setUser("YKTEST", "YK");
 
 
 $queryShipment = $request->queryShipment("SBG5448C616D8");

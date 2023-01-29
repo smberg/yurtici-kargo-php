@@ -1,4 +1,5 @@
 # Yurtiçi Kargo PHP
+
 Yurtiçi Kargo php api entegrasyonu
 
 # Installation
@@ -31,8 +32,8 @@ require_once('/path/to/yurtici-kargo-php/YurticiKargoBootstrap.php');
 <?php
 require_once "../vendor/autoload.php";
 
-$request = new YurticiKargo\Request();
-$request->setUser("YKTEST", "YK")->init("test");
+$request = new YurticiKargo\Request("test");
+$request->setUser("YKTEST", "YK");
 
 $shipmentDetails = array(
     "receiverCustName" => "Berkay Gümüştekin",

@@ -1,14 +1,25 @@
 <?php
+
 namespace YurticiKargo;
+
 use \SoapClient;
 
-class Request 
+class Request
 {
     private $userName = '';
     private $password = '';
     private $apiURL = null;
     private $soapClient = null;
- 
+
+    /**
+     * __construct
+     * @param string $status test || prod
+     */
+    public function __construct($status = 'prod')
+    {
+        $this->init($status);
+    }
+
     /**
      * setUser
      *
@@ -18,13 +29,13 @@ class Request
      * @param  string $pass
      * @return Request
      */
-    public function setUser($username,$pass)
+    public function setUser($username, $pass)
     {
-       $this->userName = $username;
-       $this->password = $pass; 
-       return $this;
+        $this->userName = $username;
+        $this->password = $pass;
+        return $this;
     }
-  
+
     /**
      * setApiURL
      * 
@@ -38,26 +49,29 @@ class Request
         $this->apiURL = $url;
         return $this;
     }
-    
+
     /**
      * init
      *
      * @param  string $status test || prod
      * @return Request
      */
-    public function init($status)
+    public function init($status = 'prod')
     {
-        if($status == 'test') {
+        if ($status == 'test') {
             $this->setApiURL("http://testwebservices.yurticikargo.com:9090/KOPSWebServices/ShippingOrderDispatcherServices?wsdl");
-            $this->setUser("YKTEST","YK");
+
+            if ($this->userName == '' || $this->password == '') {
+                $this->setUser("YKTEST", "YK");
+            }
         } else {
             $this->setApiURL("http://webservices.yurticikargo.com:8080/KOPSWebServices/ShippingOrderDispatcherServices?wsdl");
         }
-            
+
         $this->soapClient = new SoapClient($this->apiURL, array("trace" => 1, "exception" => 0));
         return $this;
     }
-    
+
     /**
      * Kargo oluşturma
      *
@@ -86,7 +100,7 @@ class Request
 
         return $result;
     }
-    
+
     /**
      * Kargo durumu sorgulama
      *
@@ -107,7 +121,7 @@ class Request
             "onlyTracking" => "",
         );
         $finalValues = array();
-        if($type == "string") {
+        if ($type == "string") {
             $finalValues = $defaults;
             $finalValues["keys"] = $cargoInfo;
         } else {
@@ -119,7 +133,7 @@ class Request
         $queryShipment = new QueryShipment($result);
         return $queryShipment;
     }
-    
+
     /**
      * Kargo anahtarı ile işlemi iptal et
      *
@@ -139,7 +153,7 @@ class Request
 
         return $result;
     }
-    
+
     /**
      * Benzersiz anahtar üret
      *
